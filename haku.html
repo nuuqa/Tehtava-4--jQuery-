@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haku</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $('[name="submit"]').click(function () {
+          var nimi = $("#nimi").val();
+          // Hae api-rajapinnasta
+          $.getJSON(
+            "http://a41d.k.time4vps.cloud:3001/henkilot",
+            function (data) {
+              // Käydään läpi henkilöt
+              $.each(data, function (index, person) {
+                if (person.nimi === nimi) {
+                  $("#puhelin").val(person.puhelin);
+                  return false;
+                }
+              });
+            }
+          );
+        });
+      });
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <section>
+      <h1>Haku</h1>
+      <div id="container">
+        <form id="form" name="form">
+          <th>Syötä nimi:</th>
+          <td>
+            <input
+              name="nimi"
+              id="nimi"
+              type="text"
+              value=""
+              maxlength="35"
+              size="35"
+            />
+          </td>
+          <td>
+            <input
+              name="puhelin"
+              id="puhelin"
+              type="text"
+              value=""
+              maxlength="35"
+              size="35"
+            />
+          </td>
+          <td>
+            <input
+              name="submit"
+              type="button"
+              value="Hae puhelinnumero"
+              id="submitBtn"
+            />
+          </td>
+        </form>
+      </div>
+      <div>
+        <a href="index.html">Takaisin</a>
+      </div>
+    </section>
+  </body>
+</html>

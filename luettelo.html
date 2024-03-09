@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- INCLUDING JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <title>Luettelo</title>
+  </head>
+  <body>
+    <section>
+      <h1>Puhelinluettelo</h1>
+      <div id="container">
+        <table id="table">
+          <!--TABLE#1-->
+          <tr>
+            <th>Nimi</th>
+            <th>Puhelinnumero</th>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <a href="index.html">Takaisin</a>
+      </div>
+      <script>
+        $(document).ready(function () {
+          // FETCHING DATA FROM JSON FILE
+          $.getJSON(
+            "http://a41d.k.time4vps.cloud:3001/henkilot",
+            function (data) {
+              // Käydään läpi henkilöt
+              $.each(data, function (index, person) {
+                var newRow = $("<tr>"); // Uusi rivi
+                newRow.append("<td>" + person.nimi + "</td>"); // Uusi solu nimelle
+                newRow.append("<td>" + person.puhelin + "</td>"); // Uusi solu puhelinnumerolle
+                $("#table").append(newRow); // Lisätään rivi HTML koodissa luotuun #1 taulukkoon.
+              });
+            }
+          );
+        });
+      </script>
+    </section>
+  </body>
+</html>
